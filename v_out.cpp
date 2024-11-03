@@ -21,6 +21,8 @@ float R1;
 float R2;
 float vIn;
 float vOut;
+float value;
+float rounded;
 
 bool hasCalculated = false;
 
@@ -65,8 +67,7 @@ float voltageDivider()
 
 float nearestValue(float in)
 {
-    // Issue: Trailing zeros
-    float value = (int)(in * 1000 + .5);
+    value = (int)(in * 1000 + .5);
     if (in < 1)
     {
         scale = "mV";
@@ -100,13 +101,14 @@ void circuitDetails()
     cout << "Circuit Details:" << endl;
     cout << "-----------------------------" << endl;
     sleep_for(300ms);
-    cout << CYAN << "Input voltage (Vin) = " + to_string(nearestValue(vIn)) + " volts" << endl;
+    cout << CYAN << "Input voltage (Vin) = " << vIn << " volts" << endl;
     sleep_for(300ms);
-    cout << RED << "Resistor #1 (R1) = " + to_string((int)R1) + " ohms." << endl;
+    cout << RED << "Resistor #1 (R1) = " << R1 << " ohms." << endl;
     sleep_for(300ms);
-    cout << RED << "Resistor #2 (R2) = " + to_string((int)R2) + " ohms." << endl;
+    cout << RED << "Resistor #2 (R2) = " << R2 << " ohms." << endl;
     sleep_for(300ms);
-    cout << CYAN << "Output voltage (Vout) = " + to_string(nearestValue(vOut)) + " " + scale << RESET << endl;
+    rounded = nearestValue(vOut);
+    cout << CYAN << "Output voltage (Vout) = " << rounded << " " + scale << RESET << endl;
     cout << "-----------------------------" << endl;
     cout << endl;
 }
@@ -116,6 +118,7 @@ void animation()
 {
     char punc[7] = {':', ':', '.', '.', '.', '.', '.'};
     int i;
+    cout << endl;
     for (i = 0; i < 7; i++)
     {
         audioProgress(i);
@@ -143,7 +146,6 @@ int main()
     circuitDescription();
     voltageDivider();
     animation();
-    cout << "Your output voltage is " << CYAN << to_string(nearestValue(vOut)) + " " + scale << RESET << endl;
     sleep_for(300ms);
     circuitDetails();
     cout << "Would you like to make another calculation? (yes/no) ";

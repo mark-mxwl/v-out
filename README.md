@@ -1,4 +1,4 @@
-# V-Out ⚡
+# V-Out 🔋
 
 This is a simple, fun-to-use terminal program (with sound!) for calcuating voltage divider circuits. Perfect for hardware engineers and tinkerers.
 
